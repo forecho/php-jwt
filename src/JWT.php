@@ -455,7 +455,7 @@ abstract class JWT
         if (array_key_exists('exp', $this->claims)) {
             $exp = $this->claims['exp'];
 
-            if (is_numeric($exp) && strval($exp) == intval($exp)) {
+            if (is_numeric($exp)) {
                 if ($exp < (time() - static::$leeway)) {
                     throw new ExpiredJwtException('The JWT has expired.', $this);
                 }
@@ -477,7 +477,7 @@ abstract class JWT
         if (array_key_exists('iat', $this->claims)) {
             $iat = $this->claims['iat'];
 
-            if (is_numeric($iat) && strval($iat) == intval($iat)) {
+            if (is_numeric($iat)) {
                 if ($iat > (time() + static::$leeway)) {
                     throw new BeforeValidException('The JWT is not yet valid.', $this);
                 }
@@ -523,7 +523,7 @@ abstract class JWT
         if (array_key_exists('nbf', $this->claims)) {
             $nbf = $this->claims['nbf'];
 
-            if (is_numeric($nbf) && strval($nbf) == intval($nbf)) {
+            if (is_numeric($nbf)) {
                 if ($nbf > (time() + static::$leeway)) {
                     throw new BeforeValidException('The JWT is not yet valid.', $this);
                 }
